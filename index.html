@@ -56,7 +56,7 @@
                 <img src="sprites/health-bar2.png" alt="">
             </div>
 
-            <button id="myBtn" type="button">Acquire 1 Worm</button>
+            <button id="oneWormBtn" type="button">Acquire 1 Worm</button>
 
 
 
@@ -68,7 +68,14 @@
     </div>
 
     <script>
-        const myBtn = document.getElementById("myBtn")
+        const oneWormBtn = document.getElementById("oneWormBtn")
+
+        console.log(oneWormBtn)
+
+        oneWormBtn.addEventListener("click", function(e) {
+            console.log('Tillykke! Du klikkede på "Acquire 1 Worm" knappen!') 
+            console.log(e)
+        });
     </script>
 
 

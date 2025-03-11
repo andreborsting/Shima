@@ -24,27 +24,28 @@
 
         }
 
-        .health-bar {
+        .ui-container {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-
-
-        }
-
-        .health-bar img {
-            position: absolute;
-            height: 150px;
-            width: auto;
-            image-rendering: pixelated;
-            top: 60px;
-            left: 30px;
         }
 
         .health-bar p {
+            margin-top: 0px;
             margin-bottom: 0px;
             margin-left: 5px;
             font-size: 20px;
+        }
+
+        .health-bar img {
+            position: relative;
+            top: 0px;
+            left: 16px;
+            height: 32px;
+            width: auto;
+            image-rendering: pixelated;
+            /* fjerner "inline spacing gap" */
+            display: block; 
         }
     </style>
 
@@ -52,10 +53,13 @@
         <div class="ui-container">
             <div class="health-bar">
                 <p>Health</p>
-                <img src="sprites/health-bar.png" alt="">
+                <img src="sprites/health-bar2.png" alt="">
             </div>
+            <button type="button">Acquire 1 Worm</button>
+            <button type="button">Take 1 damage</button>
         </div>
     </div>
+
 
 
 

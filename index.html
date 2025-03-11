@@ -1,39 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project: Shima</title>
 </head>
+
 <body>
     <style>
-        html{
+        html {
             background-color: black;
+            margin: 0;
+            padding: 0;
         }
 
-        .game-screen{
+        .game-screen {
             width: 700px;
             height: 400px;
             background-color: #a0d9ef;
             margin: auto;
             margin-top: 80px;
+
         }
 
-        .health-bar{
+        .health-bar {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+
+
         }
 
-        .health-bar img{
-            height: 200px;
+        .health-bar img {
+            position: absolute;
+            height: 150px;
             width: auto;
             image-rendering: pixelated;
+            top: 60px;
+            left: 30px;
         }
 
-        .health-bar p{
-            margin-left: 60px;
-           font-size: 40px;
+        .health-bar p {
+            margin-bottom: 0px;
+            margin-left: 5px;
+            font-size: 20px;
         }
     </style>
 
@@ -41,9 +52,14 @@
         <div class="ui-container">
             <div class="health-bar">
                 <p>Health</p>
-                <img src="health-bar.png" alt="">
+                <img src="sprites/health-bar.png" alt="">
             </div>
         </div>
     </div>
+
+
+
+
 </body>
+
 </html>

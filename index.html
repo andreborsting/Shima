@@ -63,11 +63,9 @@
 
             <button id="oneWormBtn" type="button">Acquire 1 Worm</button>
 
+            <button id="oneDmgBtn" type="button">Take 1 Damage</button>
 
-
-            <!-- button/debugging idéer -->
-            <button type="button">Take 1 Damage</button>
-            <button type="button">Take 5 Damage</button>
+            <button id="fiveDmgBtn" type="button">Take 5 Damage</button>
 
         </div>
     </div>
@@ -79,6 +77,16 @@
 
         oneWormBtn.addEventListener("click", function(e) {
             console.log('Tillykke! Du klikkede på "Acquire 1 Worm" knappen!') 
+            console.log(e)
+        });
+
+        oneDmgBtn.addEventListener("click", function(e) {
+            console.log('Du klikkede på "Take 1 Damage" knappen!') 
+            console.log(e)
+        });
+
+        fiveDmgBtn.addEventListener("click", function(e) {
+            console.log('Du klikkede på "Take 5 Damage" knappen!') 
             console.log(e)
         });
     </script>

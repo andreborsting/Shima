@@ -10,10 +10,44 @@
 <body>
     <style>
         html {
+            font-family: Arial, Helvetica, sans-serif;
             background-color: black;
             margin: 0;
             padding: 0;
         }
+
+
+
+
+
+        /* Splash screen styling */
+        #splash-screen {
+            display: flex;
+            justify-content: center;
+            width: 700px;
+            height: 400px;
+            position: fixed;
+            background-color: hsla(0, 0%, 100%, 0.90);
+        }
+
+        .menu-container {
+            padding: 100px;
+        }
+
+        .menu-container button {
+            padding: 10px;
+        }
+
+        .menu-container button:hover {
+            background-color: white;
+        }
+
+
+
+
+
+
+
 
         .game-screen {
             background-image: url(sprites/shima-idle-still.png);
@@ -49,8 +83,10 @@
             height: 32px;
             width: auto;
             image-rendering: pixelated;
-            display: block;
+
             /* fjerner "inline spacing gap" */
+            display: block;
+            
         }
 
         /* Notfikationssystem styling */
@@ -74,7 +110,7 @@
             height: auto;
             border-radius: 5px;
 
-           
+
             transition: opacity 2s, transform 3s;
             opacity: 1;
             transform: translateY(0px);
@@ -97,10 +133,48 @@
             opacity: 0;
             transform: translateY(100px);
         }
+
+
+
+        #options-menu {
+            display: flex;
+            justify-content: center;
+            width: 700px;
+            height: 400px;
+            position: fixed;
+            background-color: hsla(0, 0%, 100%, 0.90);
+        }
     </style>
 
-    <div class="game-screen">
+    <!-- Splash screen -->
+    <div id="splash-screen">
+        <div class="menu-container">
+            <h1>Project: Shima</h1>
+            <button id="startGameBtn" type="button">New Game</button>
+            <button id="optionsBtn" type="button">Options</button>
+            <button id="exitBtn" type="button">Exit</button>
+        </div>
+    </div>
 
+    <!-- "Options"-knap åbner "Options menu"
+     MANGLER LOGIK PÅ DE FLESTE NYE KNAPPER HER -->
+    <div id="options-menu">
+        <div class="menu-container">
+            <h1>Options</h1>
+
+            <!-- ingen defineret logik -->
+            <button id="extrasBtn">Extras</button>
+
+            <!-- ingen defineret logik -->
+            <button id="settingsBtn">Settings</button>
+
+            <!-- Igang med at definere... -->
+            <button id="backBtn" type="button">Back</button>
+        </div>      
+    </div>
+
+
+    <div class="game-screen">
         <div class="ui-container">
             <div class="health-bar">
                 <p>Health</p>
@@ -111,7 +185,7 @@
         </div>
     </div>
 
-    <div id="debugging-screen">
+    <div class="debugging-screen">
         <button id="oneWormBtn" type="button">Acquire 1 Worm</button>
         <button id="oneDmgBtn" type="button">Take 1 Damage</button>
         <button id="fiveDmgBtn" type="button">Take 5 Damage</button>
@@ -119,9 +193,34 @@
 
     <script>
 
-        // Notifikationssystem 
-        // (duration = tiden notifikationen vise før ".hide" oprettes)
-        // (fadeOutTime = tid før ".hide" fjernes i DOM efter oprettelse)
+
+        // Options screen logik
+        const optionsMenu = document.getElementById("options-menu")
+        const optionsBtn = document.getElementById("optionsBtn")
+        const backBtn = document.getElementById("backBtn")
+
+        optionsBtn.addEventListener("click", function() {
+            optionsMenu.style.display = "flex";
+            splashScreen.style.display = "none";
+        })
+
+        backBtn.addEventListener("click", function() {
+            optionsMenu.style.display = "none";
+            splashScreen.style.display = "flex";
+        });
+
+        // Splash screen logik
+        const splashScreen = document.getElementById("splash-screen");
+        const startGameBtn = document.getElementById("startGameBtn");
+
+        startGameBtn.addEventListener("click", function () {
+            splashScreen.style.display = "none"; // Skjuler splash screen
+            // Yderligere logik herunder
+        });
+
+        // Notifikationssystem: 
+        // "duration" = tiden notifikationen vise før ".hide" oprettes)
+        // "fadeOutTime" = tid før ".hide" fjernes i DOM efter oprettelse)
         function showNotification(message, type = 'default', duration = 1000 * 2, fadeOutTime = 1000 * 3) {
             const notificationContainer = document.getElementById('notification-container')
             const notificationBox = document.createElement('div');
@@ -136,14 +235,22 @@
             }, duration);
         }
 
+
+
+
+
         // "Auto Notifikation - til "automatisk kør" under styling (comment out when done)
+
         // function runNotifications() {
         //     setInterval(() => {
         //         showNotification("Test notification!", "succes");
         //     }, 1000 * 3);
         // }
-
         // runNotifications();
+
+
+
+
 
 
 
@@ -174,6 +281,8 @@
             showNotification("You took 5 Damage!", "error");
 
         });
+
+
     </script>
 
 

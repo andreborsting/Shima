@@ -56,7 +56,9 @@
         /* Notfikationssystem styling */
         #notification-container {
             display: flex;
-            flex-direction: column;
+
+            /* Nyeste notifikation øverst */
+            flex-direction: column-reverse;
 
             gap: 20px;
 
@@ -71,17 +73,29 @@
             width: auto;
             height: auto;
             border-radius: 5px;
-            opacity: 1;
-            transition: opacity 0.3s, transform 0.3s;
 
+           
+            transition: opacity 2s, transform 3s;
+            opacity: 1;
+            transform: translateY(0px);
+        }
+
+        .notification.default {
+            background-color: rgb(0, 0, 0);
         }
 
         .notification.succes {
             background-color: green;
         }
 
+        .notification.error {
+            background-color: red;
+        }
+
         .notification.hide {
+            /* transition påvirker disse */
             opacity: 0;
+            transform: translateY(100px);
         }
     </style>
 
@@ -103,26 +117,12 @@
         <button id="fiveDmgBtn" type="button">Take 5 Damage</button>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
     <script>
 
-        function runNotifications() {
-
-        };
-
-
-        // Notifikationssystem
-        function showNotification(message, type = 'info', duration = 1000 * 2, fadeOutTime = 1000) {
+        // Notifikationssystem 
+        // (duration = tiden notifikationen vise før ".hide" oprettes)
+        // (fadeOutTime = tid før ".hide" fjernes i DOM efter oprettelse)
+        function showNotification(message, type = 'default', duration = 1000 * 2, fadeOutTime = 1000 * 3) {
             const notificationContainer = document.getElementById('notification-container')
             const notificationBox = document.createElement('div');
             notificationBox.classList.add('notification', type);
@@ -136,14 +136,14 @@
             }, duration);
         }
 
-        // "Auto Notifikation - til "automatisk kør" under styling
-        function runNotifications() {
-            setInterval(() => {
-                showNotification("Auto Notifikation!", "succes", 2000, 500);
-            }, 1000 * 3);
-        }
+        // "Auto Notifikation - til "automatisk kør" under styling (comment out when done)
+        // function runNotifications() {
+        //     setInterval(() => {
+        //         showNotification("Test notification!", "succes");
+        //     }, 1000 * 3);
+        // }
 
-        runNotifications();
+        // runNotifications();
 
 
 
@@ -163,7 +163,7 @@
             console.log('Du klikkede på "Take 1 Damage" knappen!')
             console.log(e)
 
-
+            showNotification("You took 1 Damage!", "error");
 
         });
 
@@ -171,7 +171,7 @@
             console.log('Du klikkede på "Take 5 Damage" knappen!')
             console.log(e)
 
-
+            showNotification("You took 5 Damage!", "error");
 
         });
     </script>

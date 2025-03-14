@@ -137,7 +137,8 @@
 
 
         #options-menu {
-            display: flex;
+            /* skjules fra start */
+            display: none;
             justify-content: center;
             width: 700px;
             height: 400px;
@@ -168,7 +169,7 @@
             <!-- ingen defineret logik -->
             <button id="settingsBtn">Settings</button>
 
-            <!-- Igang med at definere... -->
+            <!-- Defineret -->
             <button id="backBtn" type="button">Back</button>
         </div>      
     </div>
@@ -181,12 +182,17 @@
                 <img src="sprites/health-bar2.png" alt="">
                 <!-- Notifikations-container -->
                 <div id="notification-container"></div>
+                <p>Worm(s)</p>
+                <img src="sprites/one-worm1-5hp2.png" alt="">
+                <!-- Notifikations-container -->
+                <div id="notification-container"></div>
             </div>
         </div>
     </div>
 
     <div class="debugging-screen">
         <button id="oneWormBtn" type="button">Acquire 1 Worm</button>
+        <button id="eatWormBtn" type="button">Eat Worm</button>
         <button id="oneDmgBtn" type="button">Take 1 Damage</button>
         <button id="fiveDmgBtn" type="button">Take 5 Damage</button>
     </div>
@@ -263,6 +269,14 @@
             console.log(e)
 
             showNotification("You collected a Worm!", "succes");
+
+        });
+
+            eatWormBtn.addEventListener("click", function (e) {
+            console.log('Tillykke! Du klikkede på "Eat Worm" knappen!')
+            console.log(e)
+
+            showNotification("You ate a Worm! Gained 5 HP", "succes");
 
         });
 

@@ -316,7 +316,6 @@
         function updateHealth(change) {
             health = Math.max(0, Math.min(100, health + change));
 
-            // fejl her? (viser ikke procenttegn)
             healthFill.style.width = health + "%";
 
             healthValue.textContent = health;

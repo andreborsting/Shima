@@ -69,6 +69,11 @@
             align-items: flex-start;
         }
 
+        /* bare så teksten lige passer med  */
+        .health-bar {
+            width: 108px;
+        }
+
         .health-bar p {
             margin-top: 0px;
             margin-bottom: 0px;
@@ -76,18 +81,34 @@
             font-size: 20px;
         }
 
-        .health-bar img {
+        #health-fill {
+
+            background-image: url(sprites/health-bar2.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+
+            margin-left: 16px;
+
+            image-rendering: pixelated;
+
+            /* logikken bruger procent så width er procent */
+            width: 100%;
+            height: 32px;
+
+            transition: width 0.5s ease;
+
+        }
+
+        /* "display: block;" fjerner "inline spacing gap" */
+        /* .health-bar img {
             position: relative;
             top: 0px;
             left: 16px;
             height: 32px;
             width: auto;
             image-rendering: pixelated;
-
-            /* fjerner "inline spacing gap" */
             display: block;
-            
-        }
+        } */
 
         /* Notfikationssystem styling */
         #notification-container {
@@ -171,19 +192,23 @@
 
             <!-- Defineret -->
             <button id="backBtn" type="button">Back</button>
-        </div>      
+        </div>
     </div>
 
 
     <div class="game-screen">
         <div class="ui-container">
+
+            <!-- Health Bar: Dynamisk "health-value" og "health fill"  -->
             <div class="health-bar">
-                <p>Health</p>
-                <img src="sprites/health-bar2.png" alt="">
-                <!-- Notifikations-container -->
-                <div id="notification-container"></div>
-                <p>Worm(s)</p>
+                <p>Health: <span id="health-value">100</span></p>
+                <div id="health-fill"></div>
+
+
+
+                <p>Worm(s): <span id="worms-value">0</span></p>
                 <img src="sprites/one-worm1.png" alt="">
+
                 <!-- Notifikations-container -->
                 <div id="notification-container"></div>
             </div>
@@ -198,19 +223,17 @@
     </div>
 
     <script>
-
-
         // Options screen logik
         const optionsMenu = document.getElementById("options-menu")
         const optionsBtn = document.getElementById("optionsBtn")
         const backBtn = document.getElementById("backBtn")
 
-        optionsBtn.addEventListener("click", function() {
+        optionsBtn.addEventListener("click", function () {
             optionsMenu.style.display = "flex";
             splashScreen.style.display = "none";
         })
 
-        backBtn.addEventListener("click", function() {
+        backBtn.addEventListener("click", function () {
             optionsMenu.style.display = "none";
             splashScreen.style.display = "flex";
         });
@@ -241,10 +264,6 @@
             }, duration);
         }
 
-
-
-
-
         // "Auto Notifikation - til "automatisk kør" under styling (comment out when done)
 
         // function runNotifications() {
@@ -255,34 +274,71 @@
         // runNotifications();
 
 
+        // Health Bar logikken
+        let health = 100;
+        const healthFill = document.getElementById("health-fill");
+        const healthValue = document.getElementById("health-value");
+
+        function updateHealth(change) {
+            health = Math.max(0, Math.min(100, health + change));
+            healthFill.style.width = health + "%";
+            healthValue.textContent = health;
+
+            if (health <= 0) {
+                showNotification("You died!", "error");
+            }
+        }
 
 
-
-
-
+        // knapper til gameplay mechanics og logik til update health
         const oneWormBtn = document.getElementById("oneWormBtn")
         const oneDmgBtn = document.getElementById("oneDmgBtn")
         const fiveDmgBtn = document.getElementById("fiveDmgBtn")
+        const eatWormBtn = document.getElementById("eatWormBtn")
+
+        // Worm logik
+        // Mangler: MAX ANTAL WORMS?
+        let worms = 0;
+        const wormsValue = document.getElementById("worms-value")
+
+        function updateWorms(change) {
+            worms = Math.max(0, worms + change);
+            wormsValue.textContent = worms;
+        }
 
         oneWormBtn.addEventListener("click", function (e) {
             console.log('Tillykke! Du klikkede på "Acquire 1 Worm" knappen!')
             console.log(e)
 
+            updateWorms(1);
+
             showNotification("You collected a Worm!", "succes");
 
         });
 
-            eatWormBtn.addEventListener("click", function (e) {
+
+
+        eatWormBtn.addEventListener("click", function (e) {
             console.log('Tillykke! Du klikkede på "Eat Worm" knappen!')
             console.log(e)
 
-            showNotification("You ate a Worm! Gained 5 HP", "succes");
+            if (worms > 0) {
+                updateWorms(-1);
+                updateHealth(5);
+                showNotification("You ate a Worm! Gained 5 HP", "succes");
+            } else {
+                showNotification("No more worms :(", "error");
+            }
 
         });
 
         oneDmgBtn.addEventListener("click", function (e) {
             console.log('Du klikkede på "Take 1 Damage" knappen!')
             console.log(e)
+
+            // Tæller virker! 
+            // NB: Mangler img dynamik!
+            updateHealth(-1);
 
             showNotification("You took 1 Damage!", "error");
 
@@ -291,6 +347,10 @@
         fiveDmgBtn.addEventListener("click", function (e) {
             console.log('Du klikkede på "Take 5 Damage" knappen!')
             console.log(e)
+
+            // Tæller virker! 
+            // NB: Mangler img dynamik!
+            updateHealth(-5);
 
             showNotification("You took 5 Damage!", "error");
 

@@ -81,10 +81,42 @@
             font-size: 20px;
         }
 
-        #health-fill {
+        #health-background {
+            background-image: url(sprites/health-bar-white1.png);
 
-            background-image: url(sprites/health-bar2.png);
-            background-size: contain;
+            position: relative;
+            z-index: 0;
+
+            /* adjust height of healthbar */
+            top: 0px;
+
+
+
+            /* Problemet var at size var sat til contain!! */
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+
+
+            margin-left: 16px;
+
+            image-rendering: pixelated;
+
+            /* logikken bruger procent så width er procent */
+            width: 100%;
+            height: 32px;
+        }
+
+        #health-fill {
+            background-image: url(sprites/health-bar-green1.png);
+
+            position: relative;
+            z-index: 1;
+
+            /* adjust height of healthbar */
+            top: -32px;
+
+            /* Problemet var at size var sat til contain!! */
+            background-size: 100% 100%;
             background-repeat: no-repeat;
 
             margin-left: 16px;
@@ -96,7 +128,6 @@
             height: 32px;
 
             transition: width 0.5s ease;
-
         }
 
         /* "display: block;" fjerner "inline spacing gap" */
@@ -202,6 +233,7 @@
             <!-- Health Bar: Dynamisk "health-value" og "health fill"  -->
             <div class="health-bar">
                 <p>Health: <span id="health-value">100</span></p>
+                <div id="health-background"></div>
                 <div id="health-fill"></div>
 
 

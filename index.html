@@ -274,14 +274,18 @@
         // runNotifications();
 
 
-        // Health Bar logikken
+        // Health Bar logikken 
+        // VISUELLE DEL VIRKER IKKE (MEN JEG HAR LOGIKKEN)
         let health = 100;
         const healthFill = document.getElementById("health-fill");
         const healthValue = document.getElementById("health-value");
 
         function updateHealth(change) {
             health = Math.max(0, Math.min(100, health + change));
+
+            // fejl her? (godnat)
             healthFill.style.width = health + "%";
+
             healthValue.textContent = health;
 
             if (health <= 0) {

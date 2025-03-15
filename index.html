@@ -172,7 +172,7 @@
             background-color: rgb(0, 0, 0);
         }
 
-        .notification.succes {
+        .notification.success {
             background-color: green;
         }
 
@@ -255,6 +255,11 @@
     </div>
 
     <script>
+        
+        // Splash screen logik
+        const splashScreen = document.getElementById("splash-screen");
+        const startGameBtn = document.getElementById("startGameBtn");
+
         // Options screen logik
         const optionsMenu = document.getElementById("options-menu")
         const optionsBtn = document.getElementById("optionsBtn")
@@ -270,9 +275,6 @@
             splashScreen.style.display = "flex";
         });
 
-        // Splash screen logik
-        const splashScreen = document.getElementById("splash-screen");
-        const startGameBtn = document.getElementById("startGameBtn");
 
         startGameBtn.addEventListener("click", function () {
             splashScreen.style.display = "none"; // Skjuler splash screen
@@ -300,14 +302,13 @@
 
         // function runNotifications() {
         //     setInterval(() => {
-        //         showNotification("Test notification!", "succes");
+        //         showNotification("Test notification!", "success");
         //     }, 1000 * 3);
         // }
         // runNotifications();
 
 
         // Health Bar logikken 
-        // VISUELLE DEL VIRKER IKKE (MEN JEG HAR LOGIKKEN)
         let health = 100;
         const healthFill = document.getElementById("health-fill");
         const healthValue = document.getElementById("health-value");
@@ -315,7 +316,7 @@
         function updateHealth(change) {
             health = Math.max(0, Math.min(100, health + change));
 
-            // fejl her? (godnat)
+            // fejl her? (viser ikke procenttegn)
             healthFill.style.width = health + "%";
 
             healthValue.textContent = health;
@@ -348,7 +349,7 @@
 
             updateWorms(1);
 
-            showNotification("You collected a Worm!", "succes");
+            showNotification("You collected a Worm!", "success");
 
         });
 
@@ -361,7 +362,7 @@
             if (worms > 0) {
                 updateWorms(-1);
                 updateHealth(5);
-                showNotification("You ate a Worm! Gained 5 HP", "succes");
+                showNotification("You ate a Worm! Gained 5 HP", "success");
             } else {
                 showNotification("No more worms :(", "error");
             }

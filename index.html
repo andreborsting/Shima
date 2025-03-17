@@ -22,7 +22,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            
+
             padding: 50px;
         }
 
@@ -40,7 +40,7 @@
 
 
 
-        
+
 
 
         .ui-container {
@@ -176,7 +176,7 @@
         /* Game screen styling */
         #game-screen {
             display: none;
-            
+
 
             background-image: url(sprites/shima-idle-still.png);
             background-size: contain;
@@ -239,7 +239,6 @@
 
             background-color: hsla(0, 0%, 100%, 0.90);
         }
-
     </style>
 
     <!-- Problemer med positionering løses med wrapper -->
@@ -249,64 +248,67 @@
         <!-- Game screen -->
         <div id="game-screen">
             <div class="ui-container">
-    
+
                 <!-- Health Bar: Dynamisk "health-value" og "health fill"  -->
                 <div class="health-bar">
                     <p>Health: <span id="health-value">100</span></p>
                     <div id="health-background"></div>
                     <div id="health-fill"></div>
-    
+
                     <p>Worm(s): <span id="worms-value">0</span></p>
                     <img src="sprites/one-worm1.png" alt="Worms visual UI element">
-    
+
                     <!-- Notifikations-container -->
                     <div id="notification-container"></div>
                 </div>
             </div>
         </div>
-    
+
         <!-- Splash screen -->
         <div id="splash-screen">
             <div class="menu-container">
                 <h1>Project: Shima</h1>
-    
+
                 <button id="startGameBtn" type="button">New Game</button>
 
                 <button id="optionsBtn" type="button">Options</button>
-    
+
             </div>
         </div>
-    
+
         <div id="options-menu">
             <div class="menu-container">
                 <h1>Options</h1>
-    
+
                 <!-- Virker ikke optimalt endnu -->
                 <button id="extrasBtn" type="button">Extras</button>
-    
+
                 <!-- ingen defineret logik -->
                 <button id="settingsBtn" type="button">Settings</button>
-    
+
                 <!-- Defineret -->
                 <button id="backBtn" type="button">Back</button>
             </div>
         </div>
-    
+
         <div id="extras-menu">
             <div class="menu-container">
                 <h1>Extras</h1>
-    
+
                 <!-- animationsBtn udefineret! -->
                 <button id="animationsBtn" type="button">Animations</button>
+
+                <button id="backToOptionsBtn">Back to Options</button>
             </div>
         </div>
-    
+
         <div id="animations-menu">
             <div class="menu-container">
                 <h1>Animations</h1>
-    
-                <img src="" alt="">
-    
+
+                <img style="image-rendering: pixelated;" src="sprites/shima-jump.gif" alt="">
+
+                <button id="backToOptionsFromAnimationsBtn">Back to Options</button>
             </div>
         </div>
 
@@ -333,10 +335,14 @@
         const backBtn = document.getElementById("backBtn")
         const extrasBtn = document.getElementById("extrasBtn")
         const animationsBtn = document.getElementById("animationsBtn")
+        const backToOptionsBtn = document.getElementById("backToOptionsBtn")
+        const backToOptionsFromAnimationsBtn = document.getElementById("backToOptionsFromAnimationsBtn")
 
         const optionsMenu = document.getElementById("options-menu")
         const extrasMenu = document.getElementById("extras-menu")
         const animationsMenu = document.getElementById("animations-menu")
+
+
 
         // "Start Game" = "New Game"
         startGameBtn.addEventListener("click", function () {
@@ -344,37 +350,58 @@
             optionsMenu.style.display = "none";
             splashScreen.style.display = "none";
             extrasMenu.style.display = "none";
+            animationsMenu.style.display = "none";
         });
 
         // optionsBtn = from options-menu -> options
         optionsBtn.addEventListener("click", function () {
+            gameScreen.style.display = "none";
             optionsMenu.style.display = "flex";
             splashScreen.style.display = "none";
             extrasMenu.style.display = "none";
+            animationsMenu.style.display = "none";
         });
 
         // backBtn = from options -> splash-screen
         backBtn.addEventListener("click", function () {
+            gameScreen.style.display = "none";
             optionsMenu.style.display = "none";
             splashScreen.style.display = "flex";
             extrasMenu.style.display = "none";
+            animationsMenu.style.display = "none";
         });
 
         // options -> extras
         extrasBtn.addEventListener("click", function () {
+            gameScreen.style.display = "none";
             optionsMenu.style.display = "none";
             splashScreen.style.display = "none";
             extrasMenu.style.display = "flex";
+            animationsMenu.style.display = "none";
         });
 
         animationsBtn.addEventListener("click", function () {
-
-            // udefineret (mangler css og html)
-            animationsMenu.style.display = "flex";
-
+            gameScreen.style.display = "none";
             optionsMenu.style.display = "none";
             splashScreen.style.display = "none";
             extrasMenu.style.display = "none";
+            animationsMenu.style.display = "flex";
+        })
+
+        backToOptionsBtn.addEventListener("click", function () {
+            gameScreen.style.display = "none";
+            optionsMenu.style.display = "flex";
+            splashScreen.style.display = "none";
+            extrasMenu.style.display = "none";
+            animationsMenu.style.display = "none";
+        })
+
+        backToOptionsFromAnimationsBtn.addEventListener("click", function () {
+            gameScreen.style.display = "none";
+            optionsMenu.style.display = "flex";
+            splashScreen.style.display = "none";
+            extrasMenu.style.display = "none";
+            animationsMenu.style.display = "none";
         })
 
 
@@ -471,8 +498,6 @@
             console.log('Du klikkede på "Take 1 Damage" knappen!')
             console.log(e)
 
-            // Tæller virker! 
-            // NB: Mangler img dynamik!
             updateHealth(-1);
 
             showNotification("You took 1 Damage!", "error");
@@ -483,8 +508,6 @@
             console.log('Du klikkede på "Take 5 Damage" knappen!')
             console.log(e)
 
-            // Tæller virker! 
-            // NB: Mangler img dynamik!
             updateHealth(-5);
 
             showNotification("You took 5 Damage!", "error");

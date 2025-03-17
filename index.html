@@ -55,7 +55,7 @@
 
         /* bare så teksten lige passer med  */
         .health-bar {
-            width: 108px;
+            width: 170px;
         }
 
         .health-bar p {
@@ -66,7 +66,7 @@
         }
 
         #health-background {
-            background-image: url(sprites/health-bar-white1.png);
+            background-image: url(sprites/health-bar-white2.png);
 
             position: relative;
             z-index: 0;
@@ -89,7 +89,7 @@
         }
 
         #health-fill {
-            background-image: url(sprites/health-bar-green1.png);
+            background-image: url(sprites/health-bar-green2.png);
 
             position: relative;
             z-index: 1;
@@ -198,6 +198,8 @@
             background-repeat: no-repeat;
             image-rendering: pixelated;
 
+            background-position: 60% center;
+
             width: 700px;
             height: 400px;
 
@@ -247,12 +249,14 @@
 
 
 
-
-        /* orme display */
+        /* orme display (ligger i "health-bar" div! så matches med disse elementer) */
         #worms-container img {
-            width: 16px;
+            width: 18px;
             height: auto;
             image-rendering: pixelated;
+
+            /* matcher health-bar */
+            margin-left: 16px;
         }
 
 
@@ -278,22 +282,15 @@
 
                     <p>Worm(s): <span id="worms-value">0</span></p>
 
-
-
-
-
                     <div id="worms-container"></div>
                     <!-- fjerner det statiske billede herunder, og erstatter med dynamisk div ovenstående -->
                     <!-- <img src="sprites/one-worm1.png" alt="Worms visual UI element"> -->
 
 
 
-
-
-
-
                     <!-- Notifikations-container -->
                     <div id="notification-container"></div>
+
                 </div>
             </div>
         </div>
@@ -509,7 +506,7 @@
 
             for (let i = 0; i < worms; i++) {
                 const wormImg = document.createElement("img");
-                wormImg.src = "sprites/one-worm1.png";
+                wormImg.src = "sprites/one-worm4.png";
                 wormImg.alt = "Worm image";
                 wormsContainer.appendChild(wormImg);
             }

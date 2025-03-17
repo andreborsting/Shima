@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project: Shima</title>
+
+
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+
+    <!-- alternativt i bunden (defer er kun til toppen) -->
+    <!-- <script src="script.js" defer></script> -->
+
 </head>
 
 <body>
@@ -15,6 +22,10 @@
             margin: 0;
             padding: 0;
         }
+
+
+
+
 
 
         /* Menu Containers */
@@ -29,10 +40,12 @@
         .menu-container button {
             position: relative;
             padding: 10px;
+            border-radius: 15px;
         }
 
         .menu-container button:hover {
-            background-color: white;
+            color: white;
+            background-color: black;
         }
 
 
@@ -44,8 +57,9 @@
 
 
         .ui-container {
+            margin: 5px;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: flex-start;
         }
 
@@ -79,7 +93,7 @@
             background-repeat: no-repeat;
 
 
-            margin-left: 16px;
+            margin-left: 5px;
 
             image-rendering: pixelated;
 
@@ -101,7 +115,7 @@
             background-size: 100% 100%;
             background-repeat: no-repeat;
 
-            margin-left: 16px;
+            margin-left: 5px;
 
             image-rendering: pixelated;
 
@@ -115,15 +129,15 @@
         /* Notfikationssystem styling */
         #notification-container {
             display: flex;
+            gap: 10px;
+
+            position: absolute;
+            top: 50px;
+            left: 550px;
 
             /* Nyeste notifikation øverst */
             flex-direction: column-reverse;
 
-            gap: 20px;
-
-            margin-top: 0px;
-            margin-bottom: 0px;
-            margin-left: 5px;
             font-size: 20px;
         }
 
@@ -133,10 +147,16 @@
             height: auto;
             border-radius: 5px;
 
-
             transition: opacity 2s, transform 3s;
             opacity: 1;
             transform: translateY(0px);
+
+        }
+
+        .notification.hide {
+            /* transition påvirker disse */
+            opacity: 0;
+            transform: translateY(100px);
         }
 
         .notification.default {
@@ -151,11 +171,6 @@
             background-color: red;
         }
 
-        .notification.hide {
-            /* transition påvirker disse */
-            opacity: 0;
-            transform: translateY(100px);
-        }
 
 
 
@@ -165,6 +180,19 @@
             gap: 5px;
             justify-content: center;
             margin-top: 10px;
+        }
+
+        #debugging-screen button {
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+            background-color: black;
+            border: 2px solid white;
+        }
+
+        #debugging-screen button:hover {
+            color: black;
+            background-color: white;
         }
 
 
@@ -270,9 +298,48 @@
             margin-left: 16px;
         }
 
+        /* Slider styling herunder https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_rangeslider_round */
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 15px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #000000;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #04AA6D;
+            cursor: pointer;
+        }
 
 
 
+        #menu-button {
+            position: absolute;
+            left: 600px;
+            top: 5px;
+        }
     </style>
 
     <!-- Problemer med positionering løses med wrapper -->
@@ -297,14 +364,20 @@
                     <!-- fjerner det statiske billede herunder, og erstatter med dynamisk div ovenstående -->
                     <!-- <img src="sprites/one-worm1.png" alt="Worms visual UI element"> -->
 
-
-
                     <!-- Notifikations-container -->
                     <div id="notification-container"></div>
 
                 </div>
+
+                <button id="menu-button" type="button">Menu</button>
+
             </div>
         </div>
+
+
+
+
+
 
         <!-- Splash screen -->
         <div id="splash-screen">
@@ -359,10 +432,12 @@
 
                 <!-- https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
                 <div class="slidecontainer">
-                    <p>Volume</p>
-                    <input type = "range" min="1" max="100" value="50" class="slider" id="myRange">
+                    <p>Volume: <span id="volume-value"></span></p>
+                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
                 </div>
-                
+
+                <button id="backToOptionsFromSettingsBtn" type="button">Back</button>
+
             </div>
         </div>
 
@@ -385,29 +460,37 @@
     <!-- JavaScript -->
     <script>
 
+        // Slider logik
+        let slider = document.getElementById("myRange");
+        let output = document.getElementById("volume-value")
+
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+        }
+
         // Deklarationer
         const gameScreen = document.getElementById("game-screen");
         const splashScreen = document.getElementById("splash-screen");
 
         const startGameBtn = document.getElementById("startGameBtn");
-        const optionsBtn = document.getElementById("optionsBtn")
-        const backBtn = document.getElementById("backBtn")
-        const extrasBtn = document.getElementById("extrasBtn")
-        const animationsBtn = document.getElementById("animationsBtn")
-        const backToOptionsBtn = document.getElementById("backToOptionsBtn")
-        const backToOptionsFromAnimationsBtn = document.getElementById("backToOptionsFromAnimationsBtn")
+        const optionsBtn = document.getElementById("optionsBtn");
+        const backBtn = document.getElementById("backBtn");
+        const extrasBtn = document.getElementById("extrasBtn");
+        const animationsBtn = document.getElementById("animationsBtn");
+        const backToOptionsBtn = document.getElementById("backToOptionsBtn");
+        const backToOptionsFromAnimationsBtn = document.getElementById("backToOptionsFromAnimationsBtn");
+        const backToOptionsFromSettingsBtn = document.getElementById("backToOptionsFromSettingsBtn");
 
-        const settingsBtn = document.getElementById("settingsBtn")
+        const settingsBtn = document.getElementById("settingsBtn");
 
-        const optionsMenu = document.getElementById("options-menu")
-        const extrasMenu = document.getElementById("extras-menu")
-        const animationsMenu = document.getElementById("animations-menu")
+        const optionsMenu = document.getElementById("options-menu");
+        const extrasMenu = document.getElementById("extras-menu");
+        const animationsMenu = document.getElementById("animations-menu");
 
-        const settingsMenu = document.getElementById("settings-menu")
+        const settingsMenu = document.getElementById("settings-menu");
 
         // Menuer - sidehåndtering
 
-        // "Start Game" = "New Game"
         startGameBtn.addEventListener("click", function () {
             gameScreen.style.display = "flex";
             optionsMenu.style.display = "none";
@@ -417,7 +500,6 @@
             settingsMenu.style.display = "none";
         });
 
-        // optionsBtn = from options-menu -> options
         optionsBtn.addEventListener("click", function () {
             gameScreen.style.display = "none";
             optionsMenu.style.display = "flex";
@@ -427,7 +509,6 @@
             settingsMenu.style.display = "none";
         });
 
-        // backBtn = from options -> splash-screen
         backBtn.addEventListener("click", function () {
             gameScreen.style.display = "none";
             optionsMenu.style.display = "none";
@@ -437,7 +518,6 @@
             settingsMenu.style.display = "none";
         });
 
-        // options -> extras
         extrasBtn.addEventListener("click", function () {
             gameScreen.style.display = "none";
             optionsMenu.style.display = "none";
@@ -454,7 +534,7 @@
             extrasMenu.style.display = "none";
             animationsMenu.style.display = "flex";
             settingsMenu.style.display = "none";
-        })
+        });
 
         backToOptionsBtn.addEventListener("click", function () {
             gameScreen.style.display = "none";
@@ -463,7 +543,7 @@
             extrasMenu.style.display = "none";
             animationsMenu.style.display = "none";
             settingsMenu.style.display = "none";
-        })
+        });
 
         backToOptionsFromAnimationsBtn.addEventListener("click", function () {
             gameScreen.style.display = "none";
@@ -472,16 +552,25 @@
             extrasMenu.style.display = "none";
             animationsMenu.style.display = "none";
             settingsMenu.style.display = "none";
-        })
+        });
 
-        settingsBtn.addEventListener("click", function() {
+        settingsBtn.addEventListener("click", function () {
             gameScreen.style.display = "none";
             optionsMenu.style.display = "none";
             splashScreen.style.display = "none";
             extrasMenu.style.display = "none";
             animationsMenu.style.display = "none";
             settingsMenu.style.display = "flex";
-        })
+        });
+
+        backToOptionsFromSettingsBtn.addEventListener("click", function () {
+            gameScreen.style.display = "none";
+            optionsMenu.style.display = "flex";
+            splashScreen.style.display = "none";
+            extrasMenu.style.display = "none";
+            animationsMenu.style.display = "none";
+            settingsMenu.style.display = "none";
+        });
 
         // Notifikationssystem: 
         // "duration" = tiden notifikationen vise før ".hide" oprettes)
@@ -547,8 +636,8 @@
             }
 
 
-             // Dynamisk div (worms stacking)
-             const wormsContainer = document.getElementById("worms-container");
+            // Dynamisk div (worms stacking)
+            const wormsContainer = document.getElementById("worms-container");
             wormsContainer.innerHTML = "";
 
             for (let i = 0; i < worms; i++) {
@@ -594,7 +683,15 @@
 
             showNotification("You took 5 Damage!", "error");
         });
+
+
+
+
+
     </script>
+
+
+    <!-- <script src="script.js"></script> -->
 
 </body>
 

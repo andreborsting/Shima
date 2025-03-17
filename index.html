@@ -83,7 +83,7 @@
 
             image-rendering: pixelated;
 
-            /* logikken bruger procent så width er procent */
+            /* logikken bruger procent så width er i procent */
             width: 100%;
             height: 32px;
         }
@@ -167,16 +167,31 @@
             margin-top: 10px;
         }
 
+
+
+        /* problemer med positionering løser jeg med wrapper */
         #game-wrapper {
             display: flex;
             justify-content: center;
         }
 
+        /* Splash screen styling */
+        #splash-screen {
+            /* vises fra start */
+            display: flex;
+            justify-content: center;
+            width: 700px;
+            height: 400px;
+
+            position: relative;
+
+            background-color: hsla(0, 0%, 100%, 0.90);
+        }
 
         /* Game screen styling */
         #game-screen {
+            /* skjules fra start */
             display: none;
-
 
             background-image: url(sprites/shima-idle-still.png);
             background-size: contain;
@@ -192,17 +207,7 @@
 
         }
 
-        /* Splash screen styling */
-        #splash-screen {
-            display: flex;
-            justify-content: center;
-            width: 700px;
-            height: 400px;
 
-            position: relative;
-
-            background-color: hsla(0, 0%, 100%, 0.90);
-        }
 
         #options-menu {
             /* skjules fra start */
@@ -239,6 +244,20 @@
 
             background-color: hsla(0, 0%, 100%, 0.90);
         }
+
+
+
+
+        /* orme display */
+        #worms-container img {
+            width: 16px;
+            height: auto;
+            image-rendering: pixelated;
+        }
+
+
+
+
     </style>
 
     <!-- Problemer med positionering løses med wrapper -->
@@ -249,6 +268,8 @@
         <div id="game-screen">
             <div class="ui-container">
 
+
+
                 <!-- Health Bar: Dynamisk "health-value" og "health fill"  -->
                 <div class="health-bar">
                     <p>Health: <span id="health-value">100</span></p>
@@ -257,9 +278,19 @@
 
                     <p>Worm(s): <span id="worms-value">0</span></p>
 
+
+
+
+
                     <div id="worms-container"></div>
                     <!-- fjerner det statiske billede herunder, og erstatter med dynamisk div ovenstående -->
                     <!-- <img src="sprites/one-worm1.png" alt="Worms visual UI element"> -->
+
+
+
+
+
+
 
                     <!-- Notifikations-container -->
                     <div id="notification-container"></div>
@@ -346,6 +377,7 @@
         const animationsMenu = document.getElementById("animations-menu")
 
 
+        // Menuer - sidehåndtering
 
         // "Start Game" = "New Game"
         startGameBtn.addEventListener("click", function () {
@@ -450,7 +482,7 @@
             }
         }
 
-        // knapper til gameplay mechanics og logik til update health
+        // knapper til debugging/gameplay mechanics
         const oneWormBtn = document.getElementById("oneWormBtn")
         const oneDmgBtn = document.getElementById("oneDmgBtn")
         const fiveDmgBtn = document.getElementById("fiveDmgBtn")
@@ -461,7 +493,7 @@
         const wormsValue = document.getElementById("worms-value")
 
         function updateWorms(change) {
-            worms = Math.max(0, Math.min(5, worms + change) );
+            worms = Math.max(0, Math.min(5, worms + change));
             wormsValue.textContent = worms;
 
             if (worms >= 5) {
@@ -469,19 +501,31 @@
             } else {
                 showNotification("You collected a Worm!", "success");
             }
+
+
+             // Dynamisk div (worms stacking)
+             const wormsContainer = document.getElementById("worms-container");
+            wormsContainer.innerHTML = "";
+
+            for (let i = 0; i < worms; i++) {
+                const wormImg = document.createElement("img");
+                wormImg.src = "sprites/one-worm1.png";
+                wormImg.alt = "Worm image";
+                wormsContainer.appendChild(wormImg);
+            }
         }
 
         // Debugging Screen Buttons logik her
         oneWormBtn.addEventListener("click", function (e) {
             console.log('Tillykke! Du klikkede på "Acquire 1 Worm" knappen!')
 
-            updateWorms(1);   
+            updateWorms(1);
 
         });
 
         eatWormBtn.addEventListener("click", function (e) {
             console.log('Tillykke! Du klikkede på "Eat Worm" knappen!')
-        
+
             if (worms > 0) {
                 updateWorms(-1);
                 updateHealth(5);
@@ -493,7 +537,7 @@
 
         oneDmgBtn.addEventListener("click", function (e) {
             console.log('Du klikkede på "Take 1 Damage" knappen!')
-        
+
             updateHealth(-1);
 
             showNotification("You took 1 Damage!", "error");
@@ -501,7 +545,7 @@
 
         fiveDmgBtn.addEventListener("click", function (e) {
             console.log('Du klikkede på "Take 5 Damage" knappen!')
-        
+
             updateHealth(-5);
 
             showNotification("You took 5 Damage!", "error");

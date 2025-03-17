@@ -256,7 +256,10 @@
                     <div id="health-fill"></div>
 
                     <p>Worm(s): <span id="worms-value">0</span></p>
-                    <img src="sprites/one-worm1.png" alt="Worms visual UI element">
+
+                    <div id="worms-container"></div>
+                    <!-- fjerner det statiske billede herunder, og erstatter med dynamisk div ovenstående -->
+                    <!-- <img src="sprites/one-worm1.png" alt="Worms visual UI element"> -->
 
                     <!-- Notifikations-container -->
                     <div id="notification-container"></div>
@@ -404,9 +407,6 @@
             animationsMenu.style.display = "none";
         })
 
-
-
-
         // Notifikationssystem: 
         // "duration" = tiden notifikationen vise før ".hide" oprettes)
         // "fadeOutTime" = tid før ".hide" fjernes i DOM efter oprettelse)
@@ -433,7 +433,6 @@
         // }
         // runNotifications();
 
-
         // Health Bar logikken 
         let health = 100;
         const healthFill = document.getElementById("health-fill");
@@ -451,7 +450,6 @@
             }
         }
 
-
         // knapper til gameplay mechanics og logik til update health
         const oneWormBtn = document.getElementById("oneWormBtn")
         const oneDmgBtn = document.getElementById("oneDmgBtn")
@@ -459,31 +457,31 @@
         const eatWormBtn = document.getElementById("eatWormBtn")
 
         // Worm logik
-        // Mangler: MAX ANTAL WORMS?
         let worms = 0;
         const wormsValue = document.getElementById("worms-value")
 
         function updateWorms(change) {
-            worms = Math.max(0, worms + change);
+            worms = Math.max(0, Math.min(5, worms + change) );
             wormsValue.textContent = worms;
+
+            if (worms >= 5) {
+                showNotification("You Cannot Carry anymore Worms", "error");
+            } else {
+                showNotification("You collected a Worm!", "success");
+            }
         }
 
+        // Debugging Screen Buttons logik her
         oneWormBtn.addEventListener("click", function (e) {
             console.log('Tillykke! Du klikkede på "Acquire 1 Worm" knappen!')
-            console.log(e)
 
-            updateWorms(1);
-
-            showNotification("You collected a Worm!", "success");
+            updateWorms(1);   
 
         });
 
-
-
         eatWormBtn.addEventListener("click", function (e) {
             console.log('Tillykke! Du klikkede på "Eat Worm" knappen!')
-            console.log(e)
-
+        
             if (worms > 0) {
                 updateWorms(-1);
                 updateHealth(5);
@@ -491,33 +489,24 @@
             } else {
                 showNotification("No more worms :(", "error");
             }
-
         });
 
         oneDmgBtn.addEventListener("click", function (e) {
             console.log('Du klikkede på "Take 1 Damage" knappen!')
-            console.log(e)
-
+        
             updateHealth(-1);
 
             showNotification("You took 1 Damage!", "error");
-
         });
 
         fiveDmgBtn.addEventListener("click", function (e) {
             console.log('Du klikkede på "Take 5 Damage" knappen!')
-            console.log(e)
-
+        
             updateHealth(-5);
 
             showNotification("You took 5 Damage!", "error");
-
         });
-
-
     </script>
-
-
 
 </body>
 

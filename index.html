@@ -17,24 +17,17 @@
         }
 
 
-
-
-
-        /* Splash screen styling */
-        #splash-screen {
-            display: flex;
-            justify-content: center;
-            width: 700px;
-            height: 400px;
-            position: fixed;
-            background-color: hsla(0, 0%, 100%, 0.90);
-        }
-
+        /* Menu Containers */
         .menu-container {
-            padding: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            
+            padding: 50px;
         }
 
         .menu-container button {
+            position: relative;
             padding: 10px;
         }
 
@@ -47,27 +40,18 @@
 
 
 
+        
 
-
-        .game-screen {
-            background-image: url(sprites/shima-idle-still.png);
-            background-size: contain;
-            background-repeat: no-repeat;
-            image-rendering: pixelated;
-
-            width: 700px;
-            height: 400px;
-            background-color: #a0d9ef;
-            margin: auto;
-            margin-top: 80px;
-
-        }
 
         .ui-container {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
+
+
+
+
 
         /* bare så teksten lige passer med  */
         .health-bar {
@@ -89,8 +73,6 @@
 
             /* adjust height of healthbar */
             top: 0px;
-
-
 
             /* Problemet var at size var sat til contain!! */
             background-size: 100% 100%;
@@ -129,17 +111,6 @@
 
             transition: width 0.5s ease;
         }
-
-        /* "display: block;" fjerner "inline spacing gap" */
-        /* .health-bar img {
-            position: relative;
-            top: 0px;
-            left: 16px;
-            height: 32px;
-            width: auto;
-            image-rendering: pixelated;
-            display: block;
-        } */
 
         /* Notfikationssystem styling */
         #notification-container {
@@ -188,98 +159,226 @@
 
 
 
+
+        #debugging-screen {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        #game-wrapper {
+            display: flex;
+            justify-content: center;
+        }
+
+
+        /* Game screen styling */
+        #game-screen {
+            display: none;
+            
+
+            background-image: url(sprites/shima-idle-still.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            image-rendering: pixelated;
+
+            width: 700px;
+            height: 400px;
+
+            position: relative;
+
+            background-color: #a0d9ef;
+
+        }
+
+        /* Splash screen styling */
+        #splash-screen {
+            display: flex;
+            justify-content: center;
+            width: 700px;
+            height: 400px;
+
+            position: relative;
+
+            background-color: hsla(0, 0%, 100%, 0.90);
+        }
+
         #options-menu {
             /* skjules fra start */
             display: none;
             justify-content: center;
             width: 700px;
             height: 400px;
-            position: fixed;
+
+            position: relative;
+
             background-color: hsla(0, 0%, 100%, 0.90);
         }
+
+        #extras-menu {
+            /* skjules fra start */
+            display: none;
+            justify-content: center;
+            width: 700px;
+            height: 400px;
+
+            position: relative;
+
+            background-color: hsla(0, 0%, 100%, 0.90);
+        }
+
+        #animations-menu {
+            /* skjules fra start */
+            display: none;
+            justify-content: center;
+            width: 700px;
+            height: 400px;
+
+            position: relative;
+
+            background-color: hsla(0, 0%, 100%, 0.90);
+        }
+
     </style>
 
-    <!-- Splash screen -->
-    <div id="splash-screen">
-        <div class="menu-container">
-            <h1>Project: Shima</h1>
-            <button id="startGameBtn" type="button">New Game</button>
-            <button id="optionsBtn" type="button">Options</button>
-            <button id="exitBtn" type="button">Exit</button>
-        </div>
-    </div>
-
-    <!-- "Options"-knap åbner "Options menu"
-     MANGLER LOGIK PÅ DE FLESTE NYE KNAPPER HER -->
-    <div id="options-menu">
-        <div class="menu-container">
-            <h1>Options</h1>
-
-            <!-- ingen defineret logik -->
-            <button id="extrasBtn">Extras</button>
-
-            <!-- ingen defineret logik -->
-            <button id="settingsBtn">Settings</button>
-
-            <!-- Defineret -->
-            <button id="backBtn" type="button">Back</button>
-        </div>
-    </div>
+    <!-- Problemer med positionering løses med wrapper -->
+    <div id="game-wrapper">
 
 
-    <div class="game-screen">
-        <div class="ui-container">
-
-            <!-- Health Bar: Dynamisk "health-value" og "health fill"  -->
-            <div class="health-bar">
-                <p>Health: <span id="health-value">100</span></p>
-                <div id="health-background"></div>
-                <div id="health-fill"></div>
-
-
-
-                <p>Worm(s): <span id="worms-value">0</span></p>
-                <img src="sprites/one-worm1.png" alt="">
-
-                <!-- Notifikations-container -->
-                <div id="notification-container"></div>
+        <!-- Game screen -->
+        <div id="game-screen">
+            <div class="ui-container">
+    
+                <!-- Health Bar: Dynamisk "health-value" og "health fill"  -->
+                <div class="health-bar">
+                    <p>Health: <span id="health-value">100</span></p>
+                    <div id="health-background"></div>
+                    <div id="health-fill"></div>
+    
+                    <p>Worm(s): <span id="worms-value">0</span></p>
+                    <img src="sprites/one-worm1.png" alt="Worms visual UI element">
+    
+                    <!-- Notifikations-container -->
+                    <div id="notification-container"></div>
+                </div>
             </div>
         </div>
+    
+        <!-- Splash screen -->
+        <div id="splash-screen">
+            <div class="menu-container">
+                <h1>Project: Shima</h1>
+    
+                <button id="startGameBtn" type="button">New Game</button>
+
+                <button id="optionsBtn" type="button">Options</button>
+    
+            </div>
+        </div>
+    
+        <div id="options-menu">
+            <div class="menu-container">
+                <h1>Options</h1>
+    
+                <!-- Virker ikke optimalt endnu -->
+                <button id="extrasBtn" type="button">Extras</button>
+    
+                <!-- ingen defineret logik -->
+                <button id="settingsBtn" type="button">Settings</button>
+    
+                <!-- Defineret -->
+                <button id="backBtn" type="button">Back</button>
+            </div>
+        </div>
+    
+        <div id="extras-menu">
+            <div class="menu-container">
+                <h1>Extras</h1>
+    
+                <!-- animationsBtn udefineret! -->
+                <button id="animationsBtn" type="button">Animations</button>
+            </div>
+        </div>
+    
+        <div id="animations-menu">
+            <div class="menu-container">
+                <h1>Animations</h1>
+    
+                <img src="" alt="">
+    
+            </div>
+        </div>
+
     </div>
 
-    <div class="debugging-screen">
+
+    <!-- Debugging Screen -->
+    <div id="debugging-screen">
         <button id="oneWormBtn" type="button">Acquire 1 Worm</button>
         <button id="eatWormBtn" type="button">Eat Worm</button>
         <button id="oneDmgBtn" type="button">Take 1 Damage</button>
         <button id="fiveDmgBtn" type="button">Take 5 Damage</button>
     </div>
 
+    <!-- JavaScript -->
     <script>
-        
-        // Splash screen logik
-        const splashScreen = document.getElementById("splash-screen");
-        const startGameBtn = document.getElementById("startGameBtn");
 
-        // Options screen logik
-        const optionsMenu = document.getElementById("options-menu")
+        // Deklarationer
+        const gameScreen = document.getElementById("game-screen");
+        const splashScreen = document.getElementById("splash-screen");
+
+        const startGameBtn = document.getElementById("startGameBtn");
         const optionsBtn = document.getElementById("optionsBtn")
         const backBtn = document.getElementById("backBtn")
+        const extrasBtn = document.getElementById("extrasBtn")
+        const animationsBtn = document.getElementById("animationsBtn")
 
+        const optionsMenu = document.getElementById("options-menu")
+        const extrasMenu = document.getElementById("extras-menu")
+        const animationsMenu = document.getElementById("animations-menu")
+
+        // "Start Game" = "New Game"
+        startGameBtn.addEventListener("click", function () {
+            gameScreen.style.display = "flex";
+            optionsMenu.style.display = "none";
+            splashScreen.style.display = "none";
+            extrasMenu.style.display = "none";
+        });
+
+        // optionsBtn = from options-menu -> options
         optionsBtn.addEventListener("click", function () {
             optionsMenu.style.display = "flex";
             splashScreen.style.display = "none";
-        })
+            extrasMenu.style.display = "none";
+        });
 
+        // backBtn = from options -> splash-screen
         backBtn.addEventListener("click", function () {
             optionsMenu.style.display = "none";
             splashScreen.style.display = "flex";
+            extrasMenu.style.display = "none";
         });
 
-
-        startGameBtn.addEventListener("click", function () {
-            splashScreen.style.display = "none"; // Skjuler splash screen
-            // Yderligere logik herunder
+        // options -> extras
+        extrasBtn.addEventListener("click", function () {
+            optionsMenu.style.display = "none";
+            splashScreen.style.display = "none";
+            extrasMenu.style.display = "flex";
         });
+
+        animationsBtn.addEventListener("click", function () {
+
+            // udefineret (mangler css og html)
+            animationsMenu.style.display = "flex";
+
+            optionsMenu.style.display = "none";
+            splashScreen.style.display = "none";
+            extrasMenu.style.display = "none";
+        })
+
+
+
 
         // Notifikationssystem: 
         // "duration" = tiden notifikationen vise før ".hide" oprettes)

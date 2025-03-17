@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project: Shima</title>
 
+    <!-- Pixelify font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+
+
 
     <!-- <link rel="stylesheet" href="styles.css"> -->
 
@@ -16,14 +22,52 @@
 
 <body>
     <style>
+        /* Guideline for pixelify font:
+        <weight>: Use a value from 400 to 700
+        <uniquifier>: Use a unique and descriptive class name
+        .pixelify-sans-<uniquifier> {
+            font-family: "Pixelify Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: <weight>;
+            font-style: normal;
+        } */
+
+        .pixelify-sans-universal {
+            font-family: "Pixelify Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+
+
+
+
+
+
+
+
         html {
-            font-family: Arial, Helvetica, sans-serif;
             background-color: black;
             margin: 0;
             padding: 0;
         }
 
+        h1 {
+            font-family: "Pixelify Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+            font-size: 2.5em;
+        }
 
+        p {
+            font-family: "Pixelify Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+            font-size: 2.5em;
+        }
 
 
 
@@ -38,9 +82,16 @@
         }
 
         .menu-container button {
+            font-family: "Pixelify Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+            font-size: 1.5em;
+
+
             position: relative;
             padding: 10px;
-            border-radius: 15px;
+            border-radius: 5px;
         }
 
         .menu-container button:hover {
@@ -184,7 +235,7 @@
 
         #debugging-screen button {
             padding: 10px;
-            border-radius: 10px;
+            border-radius: 5px;
             color: white;
             background-color: black;
             border: 2px solid white;
@@ -369,7 +420,11 @@
 
                 </div>
 
-                <button id="menu-button" type="button">Menu</button>
+                <!-- Menu Knap (fra game screen) -->
+                <div class="menu-container">
+                    <button id="menu-button" type="button">Menu</button>
+                </div>
+
 
             </div>
         </div>
@@ -489,6 +544,8 @@
 
         const settingsMenu = document.getElementById("settings-menu");
 
+        const menuBtn = document.getElementById("menu-button");
+
         // Menuer - sidehåndtering
 
         startGameBtn.addEventListener("click", function () {
@@ -571,6 +628,15 @@
             animationsMenu.style.display = "none";
             settingsMenu.style.display = "none";
         });
+
+        menuBtn.addEventListener("click", function () {
+            gameScreen.style.display = "none";
+            optionsMenu.style.display = "flex";
+            splashScreen.style.display = "none";
+            extrasMenu.style.display = "none";
+            animationsMenu.style.display = "none";
+            settingsMenu.style.display = "none";
+        })
 
         // Notifikationssystem: 
         // "duration" = tiden notifikationen vise før ".hide" oprettes)

@@ -247,6 +247,17 @@
             background-color: hsla(0, 0%, 100%, 0.90);
         }
 
+        #settings-menu {
+            /* skjules fra start */
+            display: none;
+            justify-content: center;
+            width: 700px;
+            height: 400px;
+
+            position: relative;
+
+            background-color: hsla(0, 0%, 100%, 0.90);
+        }
 
 
         /* orme display (ligger i "health-bar" div! så matches med disse elementer) */
@@ -326,10 +337,9 @@
             <div class="menu-container">
                 <h1>Extras</h1>
 
-                <!-- animationsBtn udefineret! -->
                 <button id="animationsBtn" type="button">Animations</button>
+                <button id="backToOptionsBtn" type="button">Back to Options</button>
 
-                <button id="backToOptionsBtn">Back to Options</button>
             </div>
         </div>
 
@@ -337,11 +347,29 @@
             <div class="menu-container">
                 <h1>Animations</h1>
 
-                <img style="image-rendering: pixelated;" src="sprites/shima-jump.gif" alt="">
+                <img style="image-rendering: pixelated;" src="sprites/shima-jump.gif" alt="Gif of jumping Shima">
 
                 <button id="backToOptionsFromAnimationsBtn">Back to Options</button>
             </div>
         </div>
+
+        <div id="settings-menu">
+            <div class="menu-container">
+                <h1>Settings</h1>
+
+                <!-- https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
+                <div class="slidecontainer">
+                    <p>Volume</p>
+                    <input type = "range" min="1" max="100" value="50" class="slider" id="myRange">
+                </div>
+                
+            </div>
+        </div>
+
+
+
+
+
 
     </div>
 
@@ -369,10 +397,13 @@
         const backToOptionsBtn = document.getElementById("backToOptionsBtn")
         const backToOptionsFromAnimationsBtn = document.getElementById("backToOptionsFromAnimationsBtn")
 
+        const settingsBtn = document.getElementById("settingsBtn")
+
         const optionsMenu = document.getElementById("options-menu")
         const extrasMenu = document.getElementById("extras-menu")
         const animationsMenu = document.getElementById("animations-menu")
 
+        const settingsMenu = document.getElementById("settings-menu")
 
         // Menuer - sidehåndtering
 
@@ -383,6 +414,7 @@
             splashScreen.style.display = "none";
             extrasMenu.style.display = "none";
             animationsMenu.style.display = "none";
+            settingsMenu.style.display = "none";
         });
 
         // optionsBtn = from options-menu -> options
@@ -392,6 +424,7 @@
             splashScreen.style.display = "none";
             extrasMenu.style.display = "none";
             animationsMenu.style.display = "none";
+            settingsMenu.style.display = "none";
         });
 
         // backBtn = from options -> splash-screen
@@ -401,6 +434,7 @@
             splashScreen.style.display = "flex";
             extrasMenu.style.display = "none";
             animationsMenu.style.display = "none";
+            settingsMenu.style.display = "none";
         });
 
         // options -> extras
@@ -410,6 +444,7 @@
             splashScreen.style.display = "none";
             extrasMenu.style.display = "flex";
             animationsMenu.style.display = "none";
+            settingsMenu.style.display = "none";
         });
 
         animationsBtn.addEventListener("click", function () {
@@ -418,6 +453,7 @@
             splashScreen.style.display = "none";
             extrasMenu.style.display = "none";
             animationsMenu.style.display = "flex";
+            settingsMenu.style.display = "none";
         })
 
         backToOptionsBtn.addEventListener("click", function () {
@@ -426,6 +462,7 @@
             splashScreen.style.display = "none";
             extrasMenu.style.display = "none";
             animationsMenu.style.display = "none";
+            settingsMenu.style.display = "none";
         })
 
         backToOptionsFromAnimationsBtn.addEventListener("click", function () {
@@ -434,6 +471,16 @@
             splashScreen.style.display = "none";
             extrasMenu.style.display = "none";
             animationsMenu.style.display = "none";
+            settingsMenu.style.display = "none";
+        })
+
+        settingsBtn.addEventListener("click", function() {
+            gameScreen.style.display = "none";
+            optionsMenu.style.display = "none";
+            splashScreen.style.display = "none";
+            extrasMenu.style.display = "none";
+            animationsMenu.style.display = "none";
+            settingsMenu.style.display = "flex";
         })
 
         // Notifikationssystem: 

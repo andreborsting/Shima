@@ -175,9 +175,10 @@ let worms = 0;
 const wormsValue = document.getElementById("worms-value");
 
 function updateWorms(change) {
-    worms = Math.max(0, Math.min(5, worms + change));
-    wormsValue.textContent = worms;
 
+    worms = Math.max(0, Math.min(5, worms + change));
+
+    wormsValue.textContent = worms;
 
     // Fejl: Efter implementering af if...else.
     // Problem: Notifikation "You Collected a Worm!" skal kun vises når der indsamles en orm.
@@ -190,8 +191,6 @@ function updateWorms(change) {
             showNotification("You collected a Worm!", "success");
         }
     };
-
-
 
     // Dynamisk div (worms stacking)
     const wormsContainer = document.getElementById("worms-container");
@@ -211,7 +210,6 @@ oneWormBtn.addEventListener("click", function (e) {
     console.log('Du klikkede på "Acquire 1 Worm" knappen!')
 
     updateWorms(1);
-
 });
 
 eatWormBtn.addEventListener("click", function (e) {

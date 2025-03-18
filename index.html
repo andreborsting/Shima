@@ -194,6 +194,13 @@
         }
 
         .notification {
+            font-family: "Pixelify Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+            font-size: 1em;
+
+
             color: white;
             width: auto;
             height: auto;
@@ -696,17 +703,25 @@
 
         // Worm logik
         let worms = 0;
-        const wormsValue = document.getElementById("worms-value")
+        const wormsValue = document.getElementById("worms-value");
 
         function updateWorms(change) {
             worms = Math.max(0, Math.min(5, worms + change));
             wormsValue.textContent = worms;
 
-            if (worms >= 5) {
-                showNotification("You Cannot Carry anymore Worms", "error");
-            } else {
-                showNotification("You collected a Worm!", "success");
-            }
+
+            // Fejl: Efter implementering af if...else.
+            // Problem: Notifikation "You Collected a Worm!" skal kun vises når der indsamles en orm.
+            // Løsning: tjekke om "change" er et positivt tal("når ormen indsamles")
+            // "Collection"(change = +1) vs "Consuming"(change = -1) - og derfor:
+            if (change > 0) {
+                if (worms >= 5) {
+                    showNotification("You Cannot Carry anymore Worms", "error");
+                } else {
+                    showNotification("You collected a Worm!", "success");
+                }
+            };
+                
 
 
             // Dynamisk div (worms stacking)
@@ -723,14 +738,16 @@
 
         // Debugging Screen Buttons logik her
         oneWormBtn.addEventListener("click", function (e) {
-            console.log('Tillykke! Du klikkede på "Acquire 1 Worm" knappen!')
+
+            console.log('Du klikkede på "Acquire 1 Worm" knappen!')
 
             updateWorms(1);
 
         });
 
         eatWormBtn.addEventListener("click", function (e) {
-            console.log('Tillykke! Du klikkede på "Eat Worm" knappen!')
+
+            console.log('Du klikkede på "Eat Worm" knappen!')
 
             if (worms > 0) {
                 updateWorms(-1);
@@ -742,6 +759,7 @@
         });
 
         oneDmgBtn.addEventListener("click", function (e) {
+
             console.log('Du klikkede på "Take 1 Damage" knappen!')
 
             updateHealth(-1);
@@ -750,6 +768,7 @@
         });
 
         fiveDmgBtn.addEventListener("click", function (e) {
+
             console.log('Du klikkede på "Take 5 Damage" knappen!')
 
             updateHealth(-5);

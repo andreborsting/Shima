@@ -1,0 +1,349 @@
+  /* Guideline for pixelify font:
+        <weight>: Use a value from 400 to 700
+        <uniquifier>: Use a unique and descriptive class name
+        .pixelify-sans-<uniquifier> {
+            font-family: "Pixelify Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: <weight>;
+            font-style: normal;
+        } */
+
+  .pixelify-sans-universal {
+      font-family: "Pixelify Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+  }
+
+  html {
+      background-color: black;
+      margin: 0;
+      padding: 0;
+  }
+
+  h1 {
+      font-family: "Pixelify Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 600;
+      font-style: normal;
+      font-size: 2.5em;
+  }
+
+  p {
+      font-family: "Pixelify Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 600;
+      font-style: normal;
+      font-size: 2.5em;
+  }
+
+  /* Menu Containers */
+  .menu-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      padding: 10px;
+  }
+
+  .menu-container button {
+      font-family: "Pixelify Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 600;
+      font-style: normal;
+      font-size: 1.5em;
+
+
+      position: relative;
+      padding: 10px;
+      border-radius: 5px;
+  }
+
+  .menu-container button:hover {
+      color: white;
+      background-color: black;
+  }
+
+  .ui-container {
+      margin: 5px;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+  }
+
+  /* bare så teksten lige passer med  */
+  .health-bar {
+      width: 170px;
+  }
+
+  .health-bar p {
+      margin-top: 0px;
+      margin-bottom: 0px;
+
+      margin-left: 5px;
+      font-size: 20px;
+  }
+
+  #health-background {
+      background-image: url(sprites/health-bar-white2.png);
+
+      position: relative;
+      z-index: 0;
+
+      /* adjust height of healthbar */
+      top: 0px;
+
+      /* Problemet var at size var sat til contain!! */
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+
+
+      margin-left: 5px;
+
+      image-rendering: pixelated;
+
+      /* logikken bruger procent så width er i procent */
+      width: 100%;
+      height: 32px;
+  }
+
+  #health-fill {
+      background-image: url(sprites/health-bar-green2.png);
+
+      position: relative;
+      z-index: 1;
+
+      /* adjust height of healthbar */
+      top: -32px;
+
+      /* Problemet var at size var sat til contain!! */
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+
+      margin-left: 5px;
+
+      image-rendering: pixelated;
+
+      /* logikken bruger procent så width er procent */
+      width: 100%;
+      height: 32px;
+
+      transition: width 0.5s ease;
+  }
+
+  /* Notfikationssystem styling */
+  #notification-container {
+      display: flex;
+      gap: 10px;
+
+      position: absolute;
+      top: 70px;
+      left: 550px;
+
+      /* Nyeste notifikation øverst */
+      flex-direction: column-reverse;
+
+      font-size: 20px;
+  }
+
+  .notification {
+      font-family: "Pixelify Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 600;
+      font-style: normal;
+      font-size: 1em;
+
+
+      color: white;
+      width: auto;
+      height: auto;
+      border-radius: 5px;
+
+      transition: opacity 2s, transform 3s;
+      opacity: 1;
+      transform: translateY(0px);
+
+  }
+
+  .notification.hide {
+      /* transition påvirker disse */
+      opacity: 0;
+      transform: translateY(100px);
+  }
+
+  .notification.default {
+      background-color: rgb(0, 0, 0);
+  }
+
+  .notification.success {
+      background-color: green;
+  }
+
+  .notification.error {
+      background-color: red;
+  }
+
+  #debugging-screen {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      margin-top: 10px;
+  }
+
+  #debugging-screen button {
+      font-family: "Pixelify Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 600;
+      font-style: normal;
+      font-size: 1.0em;
+
+      padding: 10px;
+      border-radius: 5px;
+      color: white;
+      background-color: black;
+      border: 2px solid white;
+  }
+
+  #debugging-screen button:hover {
+      color: black;
+      background-color: white;
+  }
+
+  /* problemer med positionering løser jeg med wrapper */
+  #game-wrapper {
+      display: flex;
+      justify-content: center;
+  }
+
+  /* Splash screen styling */
+  #splash-screen {
+      /* vises fra start */
+      display: flex;
+      justify-content: center;
+      width: 700px;
+      height: 400px;
+
+      position: relative;
+
+      background-color: hsla(0, 0%, 100%, 0.90);
+  }
+
+  /* Game screen styling */
+  #game-screen {
+      /* skjules fra start */
+      display: none;
+
+      background-image: url(sprites/shima-idle-still.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      image-rendering: pixelated;
+
+      background-position: 60% center;
+
+      width: 700px;
+      height: 400px;
+
+      position: relative;
+
+      background-color: #a0d9ef;
+
+  }
+
+  #options-menu {
+      /* skjules fra start */
+      display: none;
+      justify-content: center;
+      width: 700px;
+      height: 400px;
+
+      position: relative;
+
+      background-color: hsla(0, 0%, 100%, 0.90);
+  }
+
+  #extras-menu {
+      /* skjules fra start */
+      display: none;
+      justify-content: center;
+      width: 700px;
+      height: 400px;
+
+      position: relative;
+
+      background-color: hsla(0, 0%, 100%, 0.90);
+  }
+
+  #animations-menu {
+      /* skjules fra start */
+      display: none;
+      justify-content: center;
+      width: 700px;
+      height: 400px;
+
+      position: relative;
+
+      background-color: hsla(0, 0%, 100%, 0.90);
+  }
+
+  #settings-menu {
+      /* skjules fra start */
+      display: none;
+      justify-content: center;
+      width: 700px;
+      height: 400px;
+
+      position: relative;
+
+      background-color: hsla(0, 0%, 100%, 0.90);
+  }
+
+  /* orme display (ligger i "health-bar" div! så matches med disse elementer) */
+  #worms-container img {
+      width: 18px;
+      height: auto;
+      image-rendering: pixelated;
+
+      /* matcher health-bar */
+      margin-left: 16px;
+  }
+
+  /* Slider styling herunder https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_js_rangeslider_round */
+  .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 15px;
+      border-radius: 5px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+  }
+
+  .slider:hover {
+      opacity: 1;
+  }
+
+  .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #000000;
+      cursor: pointer;
+  }
+
+  .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #000000;
+      cursor: pointer;
+  }
+
+  #menu-button {
+      position: absolute;
+      left: 600px;
+      top: 5px;
+  }

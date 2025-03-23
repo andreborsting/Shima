@@ -32,7 +32,15 @@ const menuBtn = document.getElementById("menu-button");
 // baggrundsmusik
 const backgroundMusic = new Audio('sounds/Im looking at the clouds(shima version1).mp3')
 
-
+// "Ouch"-lyde
+const ouchSounds = [
+    new Audio('sounds/ouchShima1-first.mp3'),
+    new Audio('sounds/ouchShima1-second.mp3'),
+    new Audio('sounds/ouchShima1-third.mp3'),
+    new Audio('sounds/ouchShima1-fourth.mp3'),
+    new Audio('sounds/ouchShima1-fifth.mp3'),
+    new Audio('sounds/ouchShima1-sixth.mp3')
+];
 
 
 // Menuer - sidehåndtering
@@ -45,6 +53,7 @@ startGameBtn.addEventListener("click", function () {
     animationsMenu.style.display = "none";
     settingsMenu.style.display = "none";
 
+    // baggrundsmusik
     backgroundMusic.loop = true;
     backgroundMusic.play();
 });

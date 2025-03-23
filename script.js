@@ -140,7 +140,7 @@ menuBtn.addEventListener("click", function () {
 })
 
 // Notifikationssystem: 
-// "duration" = tiden notifikationen vise før ".hide" oprettes)
+// "duration" = tiden notifikationen vises før ".hide" oprettes)
 // "fadeOutTime" = tid før ".hide" fjernes i DOM efter oprettelse)
 function showNotification(message, type = 'default', duration = 1000 * 2, fadeOutTime = 1000 * 3) {
     const notificationContainer = document.getElementById('notification-container')
@@ -243,11 +243,20 @@ eatWormBtn.addEventListener("click", function (e) {
     }
 });
 
+// "Ouch"-lyde logik - sættes på "Dmg"-knapper med "modulus" løsning
+let currentOuchSoundIndex = 0;
+
 oneDmgBtn.addEventListener("click", function (e) {
 
     console.log('Du klikkede på "Take 1 Damage" knappen!')
 
     updateHealth(-1);
+
+    // afspiller arrayets "aktuelle" lyd
+    ouchSounds[currentOuchSoundIndex].play();
+
+    // opdaterer "currentOuchIndex" til at afspille den næste lyd i rækkefølgen(med et loop forårsaget af modulus)
+    currentOuchSoundIndex = (currentOuchSoundIndex + 1) % ouchSounds.length;
 
     showNotification("You took 1 Damage!", "error");
 });
@@ -257,6 +266,12 @@ fiveDmgBtn.addEventListener("click", function (e) {
     console.log('Du klikkede på "Take 5 Damage" knappen!')
 
     updateHealth(-5);
+
+    // afspiller arrayets "aktuelle" lyd
+    ouchSounds[currentOuchSoundIndex].play();
+
+    // opdaterer "currentOuchIndex" til at afspille den næste lyd i rækkefølgen(med et loop forårsaget af modulus)
+    currentOuchSoundIndex = (currentOuchSoundIndex + 1) % ouchSounds.length;
 
     showNotification("You took 5 Damage!", "error");
 });

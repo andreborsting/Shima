@@ -233,8 +233,8 @@
       /* skjules fra start */
       display: none;
 
-      background-image: url(sprites/shima-idle-still.png);
-      background-size: contain;
+      background-image: url(sprites/Bonki&Jackie_vShima.png);
+      background-size: cover;
       background-repeat: no-repeat;
       image-rendering: pixelated;
 

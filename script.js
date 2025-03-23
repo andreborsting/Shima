@@ -29,6 +29,12 @@ const settingsMenu = document.getElementById("settings-menu");
 
 const menuBtn = document.getElementById("menu-button");
 
+// baggrundsmusik
+const backgroundMusic = new Audio('sounds/Im looking at the clouds(shima version1).mp3')
+
+
+
+
 // Menuer - sidehåndtering
 
 startGameBtn.addEventListener("click", function () {
@@ -38,6 +44,9 @@ startGameBtn.addEventListener("click", function () {
     extrasMenu.style.display = "none";
     animationsMenu.style.display = "none";
     settingsMenu.style.display = "none";
+
+    backgroundMusic.loop = true;
+    backgroundMusic.play();
 });
 
 optionsBtn.addEventListener("click", function () {

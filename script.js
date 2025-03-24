@@ -1,10 +1,11 @@
 // Slider logik
+
 let bgmSlider = document.getElementById("bgmRange");
 let bgmOutput = document.getElementById("bgm-volume-value")
 let sfxSlider = document.getElementById("sfxRange");
 let sfxOutput = document.getElementById("sfx-volume-value")
 
-// sliders default setting
+// sliders default setting (ui)
 bgmOutput.innerHTML = bgmSlider.value;
 sfxOutput.innerHTML = sfxSlider.value;
 
@@ -15,13 +16,13 @@ bgmSlider.oninput = function () {
     backgroundMusic.volume = this.value / 100;
 };
 
-sfxSlider.oninput = function() {
+sfxSlider.oninput = function () {
     sfxOutput.innerHTML = this.value;
 
     // sætter volumen på sfx
-   for (let i = 0; i < ouchSounds.length; i++) {
+    for (let i = 0; i < ouchSounds.length; i++) {
         ouchSounds[i].volume = this.value / 100;
-   }
+    }
 };
 
 // Deklarationer

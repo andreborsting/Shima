@@ -1,10 +1,28 @@
 // Slider logik
-let slider = document.getElementById("myRange");
-let output = document.getElementById("volume-value")
+let bgmSlider = document.getElementById("bgmRange");
+let bgmOutput = document.getElementById("bgm-volume-value")
+let sfxSlider = document.getElementById("sfxRange");
+let sfxOutput = document.getElementById("sfx-volume-value")
 
-slider.oninput = function () {
-    output.innerHTML = this.value;
-}
+// sliders default setting
+bgmOutput.innerHTML = bgmSlider.value;
+sfxOutput.innerHTML = sfxSlider.value;
+
+bgmSlider.oninput = function () {
+    bgmOutput.innerHTML = this.value;
+
+    // sætter volumen på baggrundsmusikken
+    backgroundMusic.volume = this.value / 100;
+};
+
+sfxSlider.oninput = function() {
+    sfxOutput.innerHTML = this.value;
+
+    // sætter volumen på sfx
+   for (let i = 0; i < ouchSounds.length; i++) {
+        ouchSounds[i].volume = this.value / 100;
+   }
+};
 
 // Deklarationer
 const gameScreen = document.getElementById("game-screen");

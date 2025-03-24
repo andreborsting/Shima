@@ -102,10 +102,18 @@
                 <h1>Settings</h1>
 
                 <!-- https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
+
+                 <!-- Perspektivering: To sliders; baggrundsmusik og lydeffekter
+                  plan: de skal kontrollere volumen som navngivet -->
                 <div class="slidecontainer">
-                    <p>Volume: <span id="volume-value"></span></p>
-                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                    <p>Background music: <span id="bgm-volume-value"></span></p>
+                    <input type="range" min="1" max="100" value="50" class="slider" id="bgmRange">
+
+                    <p>Sound effects: <span id="sfx-volume-value"></span></p>
+                    <input type="range" min="1" max="100" value="50" class="slider" id="sfxRange">
                 </div>
+
+    
 
                 <button id="backToOptionsFromSettingsBtn" type="button">Back</button>
 

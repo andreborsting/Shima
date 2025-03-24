@@ -44,6 +44,7 @@
       gap: 10px;
 
       padding: 10px;
+
   }
 
   .menu-container button {
@@ -52,7 +53,6 @@
       font-weight: 600;
       font-style: normal;
       font-size: 1.5em;
-
 
       position: relative;
       padding: 10px;
@@ -340,6 +340,10 @@
       border-radius: 50%;
       background: #000000;
       cursor: pointer;
+  }
+
+  .slidecontainer p {
+    font-size: 1.5em;
   }
 
   #menu-button {

@@ -300,3 +300,19 @@ fiveDmgBtn.addEventListener("click", function (e) {
 
     showNotification("You took 5 Damage!", "error");
 });
+
+// PERSPEKTIVERING:
+// Håndtering af "Escape"-knap (virker p.t. kun fra "game screen" til "options menu" og tilbage)
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        if (gameScreen.style.display === "flex") {
+            // hvis game screen er aktiv så:
+            gameScreen.style.display = "none";
+            optionsMenu.style.display = "flex";
+        } else if (optionsMenu.style.display === "flex") {
+            // ellers hvis options menu er aktiv så:
+            optionsMenu.style.display = "none";
+            gameScreen.style.display = "flex";
+        }
+    }
+})

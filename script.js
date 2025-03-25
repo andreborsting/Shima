@@ -1,3 +1,4 @@
+// PERSPEKTIVERING:
 // Slider logik
 
 let bgmSlider = document.getElementById("bgmRange");
@@ -5,6 +6,7 @@ let bgmOutput = document.getElementById("bgm-volume-value")
 let sfxSlider = document.getElementById("sfxRange");
 let sfxOutput = document.getElementById("sfx-volume-value")
 
+// PERSPEKTIVERING:
 // sliders default setting (ui)
 bgmOutput.innerHTML = bgmSlider.value;
 sfxOutput.innerHTML = sfxSlider.value;
@@ -48,9 +50,11 @@ const settingsMenu = document.getElementById("settings-menu");
 
 const menuBtn = document.getElementById("menu-button");
 
+// PERSPEKTIVERING:
 // baggrundsmusik
 const backgroundMusic = new Audio('sounds/Im looking at the clouds(shima version1).mp3')
 
+// PERSPEKTIVERING:
 // "Ouch"-lyde
 const ouchSounds = [
     new Audio('sounds/ouchShima1-first.mp3'),
@@ -72,6 +76,7 @@ startGameBtn.addEventListener("click", function () {
     animationsMenu.style.display = "none";
     settingsMenu.style.display = "none";
 
+    // PERSPEKTIVERING:
     // baggrundsmusik
     backgroundMusic.loop = true;
     backgroundMusic.play();
@@ -262,6 +267,7 @@ eatWormBtn.addEventListener("click", function (e) {
     }
 });
 
+// PERSPEKTIVERING:
 // "Ouch"-lyde logik - sættes på "Dmg"-knapper med "modulus" løsning
 let currentOuchSoundIndex = 0;
 

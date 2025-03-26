@@ -1,13 +1,12 @@
 // PERSPEKTIVERING:
 // Slider logik
-
 let bgmSlider = document.getElementById("bgmRange");
 let bgmOutput = document.getElementById("bgm-volume-value")
 let sfxSlider = document.getElementById("sfxRange");
 let sfxOutput = document.getElementById("sfx-volume-value")
 
 // PERSPEKTIVERING:
-// sliders default setting (ui)
+// sliders default setting (UI default value)
 bgmOutput.innerHTML = bgmSlider.value;
 sfxOutput.innerHTML = sfxSlider.value;
 
@@ -65,9 +64,7 @@ const ouchSounds = [
     new Audio('sounds/ouchShima1-sixth.mp3')
 ];
 
-
 // Menuer - sidehåndtering
-
 startGameBtn.addEventListener("click", function () {
     gameScreen.style.display = "flex";
     optionsMenu.style.display = "none";

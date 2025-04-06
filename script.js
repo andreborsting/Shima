@@ -64,6 +64,8 @@ const ouchSounds = [
     new Audio('sounds/ouchShima1-sixth.mp3')
 ];
 
+
+
 // Menuer - sidehåndtering
 startGameBtn.addEventListener("click", function () {
     gameScreen.style.display = "flex";
@@ -208,6 +210,25 @@ const oneWormBtn = document.getElementById("oneWormBtn")
 const oneDmgBtn = document.getElementById("oneDmgBtn")
 const fiveDmgBtn = document.getElementById("fiveDmgBtn")
 const eatWormBtn = document.getElementById("eatWormBtn")
+
+const tickleBtn = document.getElementById("tickleBtn")
+
+const tickleSounds = [
+    new Audio('sounds/tickle1-first.mp3')
+];
+
+tickleBtn.addEventListener("click", function (e) {
+
+    console.log('Du klikkede på "Tickle" knappen!');
+    showNotification("It tickles!", "success");
+
+    // afspiller arrayets "aktuelle" lyd
+    tickleSounds[currentTickleSoundIndex].play();
+
+    // opdaterer "currentOuchIndex" til at afspille den næste lyd i rækkefølgen(med et loop forårsaget af modulus)
+    currentTickleSoundIndex = (currentTickleSoundIndex + 1) % tickleSounds.length;
+    
+});
 
 // Worm logik
 let worms = 0;
